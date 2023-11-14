@@ -16,12 +16,14 @@ public class ResourcesController {
     private final ResourcesService resourcesService;
 
     public ResourcesController(ResourcesService resourcesService) {
+
         this.resourcesService = resourcesService;
     }
 
     //createResources
     @RequestMapping(value = "/createResources", method = RequestMethod.POST)
     public ResponseEntity<ResourcesDTO> createResources(@RequestBody ResourcesDTO resources) {
+        System.out.println("resources = " + resources);
         return ResponseEntity.ok(resourcesService.createResources(resources));
     }
 
@@ -44,7 +46,7 @@ public class ResourcesController {
     }
 
     @RequestMapping(value = "/getAllResources", method = RequestMethod.GET)
-    public ResponseEntity <List<ResourcesDTO>> getAllResources() {
+    public ResponseEntity<List<ResourcesDTO>> getAllResources() {
         return ResponseEntity.ok(resourcesService.getAllResources());
     }
 

@@ -13,10 +13,10 @@ public class Resources {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private int PRIORITY_ORDER;
-    private int CEMENT;
-    private int WATER;
-    private int SAND_TRIPS;
-    private int LABOURERS;
-    private int ComplaintID;
+    private Long priority;
+    private Long cement;
+    private Long water;
+    private Long sandTrips;
+    private Long conductors;
+    private Long complaintID;
 }

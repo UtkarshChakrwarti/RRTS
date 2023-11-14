@@ -31,11 +31,11 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     private ResourcesDTO getResourcesDTO(ResourcesDTO resources, Resources resource) {
-        resource.setPRIORITY_ORDER(resources.getPRIORITY_ORDER());
-        resource.setCEMENT(resources.getCEMENT());
-        resource.setWATER(resources.getWATER());
-        resource.setSAND_TRIPS(resources.getSAND_TRIPS());
-        resource.setLABOURERS(resources.getLABOURERS());
+        resource.setPriority(resources.getPriority());
+        resource.setCement(resources.getCement());
+        resource.setWater(resources.getWater());
+        resource.setSandTrips(resources.getSandTrips());
+        resource.setConductors(resources.getConductors());
         resource.setComplaintID(resources.getComplaintID());
         resourcesRepository.save(resource);
         return entityMapper.toDto(resource, ResourcesDTO.class);
@@ -43,34 +43,46 @@ public class ResourcesServiceImpl implements ResourcesService {
 
     @Override
     public ResourcesDTO updateResources(ResourcesDTO resources) {
-        Resources resource = resourcesRepository.findById(resources.getId()).orElseThrow();
-        return getResourcesDTO(resources, resource);
-
+        try {
+            Resources resource = resourcesRepository.findById(resources.getId()).orElseThrow();
+            return getResourcesDTO(resources, resource);
+        } catch (Exception e) {
+            throw new RuntimeException("Resource not found");
+        }
     }
 
     @Override
     public ResourcesDTO getResourcesById(Long id) {
-        Resources resource = resourcesRepository.findById(id).orElseThrow();
-        return entityMapper.toDto(resource, ResourcesDTO.class);
+        try {
+            Resources resources = resourcesRepository.findById(id).orElseThrow();
+            return entityMapper.toDto(resources, ResourcesDTO.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public ResourcesDTO deleteResourcesById(Long id) {
-        Resources resource = resourcesRepository.findById(id).orElseThrow();
-        resourcesRepository.delete(resource);
-        return entityMapper.toDto(resource, ResourcesDTO.class);
+        try {
+            Resources resources = resourcesRepository.findById(id).orElseThrow();
+            resourcesRepository.delete(resources);
+        } catch (Exception e) {
+            return null;
+        }
+        return null;
     }
 
     @Override
     public List<ResourcesDTO> getAllResources() {
-        List<Resources> resources = resourcesRepository.findAll();
-        //save all resources in list
-        List<ResourcesDTO> resourcesDTOS= new ArrayList<>();
-        //using for each loop and entity mapper to save all resources in list
-        for (Resources resource : resources) {
-            resourcesDTOS.add(entityMapper.toDto(resource, ResourcesDTO.class));
+        try {
+            List<Resources> resources = resourcesRepository.findAll();
+            List<ResourcesDTO> resourcesDTOS = new ArrayList<>();
+            for (Resources resource : resources) {
+                resourcesDTOS.add(entityMapper.toDto(resource, ResourcesDTO.class));
+            }
+            return resourcesDTOS;
+        } catch (Exception e) {
+            return null;
         }
-        return resourcesDTOS;
-
     }
 }
