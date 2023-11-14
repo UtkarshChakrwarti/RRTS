@@ -1,9 +1,10 @@
-package com.typhoone.rrts.service;
+package com.typhoone.rrts.service.serviceImpl;
 
 import com.typhoone.rrts.dtos.UsersDTO;
 import com.typhoone.rrts.entity.Users;
 import com.typhoone.rrts.enums.Role;
 import com.typhoone.rrts.repository.UsersRepository;
+import com.typhoone.rrts.service.UserService;
 import com.typhoone.rrts.utility.EntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -35,7 +35,6 @@ public class UsersController {
         return ResponseEntity.ok(userService.deleteUser(user));
     }
 
-    //getAllUser with pagination
 
     //getUserById
     @RequestMapping(value = "/getUserById", method = RequestMethod.POST)
