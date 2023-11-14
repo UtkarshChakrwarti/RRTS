@@ -43,48 +43,74 @@ public class ComplainServiceImpl implements ComplainService {
 
     @Override
     public ComplainDTO updateComplain(ComplainDTO complain) {
-
-        Complain complains = complainRepository.findById(complain.getId()).orElseThrow();
-        return getComplainDTO(complain, complains);
+        try {
+            Complain complains = complainRepository.findById(complain.getId()).orElseThrow();
+            return getComplainDTO(complain, complains);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public ComplainDTO deleteComplain(ComplainDTO complain) {
-        Complain complains = complainRepository.findById(complain.getId()).orElseThrow();
-        complainRepository.delete(complains);
-        return entityMapper.toDto(complains, ComplainDTO.class);
+        try {
+            Complain complains = complainRepository.findById(complain.getId()).orElseThrow();
+            complainRepository.delete(complains);
+            return entityMapper.toDto(complains, ComplainDTO.class);
+        } catch (Exception e) {
+            return null;
+        }
     }
 
     @Override
     public ComplainDTO getComplainById(Long id) {
-        Complain complains = complainRepository.findById(id).orElseThrow();
-        return entityMapper.toDto(complains, ComplainDTO.class);
+        try {
+            Complain complains = complainRepository.findById(id).orElseThrow();
+            return entityMapper.toDto(complains, ComplainDTO.class);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     @Override
     public ComplainDTO deleteComplainById(Long id) {
-        Complain complains = complainRepository.findById(id).orElseThrow();
-        complainRepository.delete(complains);
-        return entityMapper.toDto(complains, ComplainDTO.class);
+        try {
+            Complain complains = complainRepository.findById(id).orElseThrow();
+            complainRepository.delete(complains);
+            return entityMapper.toDto(complains, ComplainDTO.class);
+        } catch (Exception e) {
+            return null;
+        }
+
     }
 
     @Override
     public List<ComplainDTO> getAllComplains() {
-        List<Complain> complains = complainRepository.findAll();
-        List<ComplainDTO> complainDTOS = new ArrayList<>();
-        for (Complain complain : complains) {
-            complainDTOS.add(entityMapper.toDto(complain, ComplainDTO.class));
+        try {
+            List<Complain> complains = complainRepository.findAll();
+            List<ComplainDTO> complainDTOS = new ArrayList<>();
+            for (Complain complain : complains) {
+                complainDTOS.add(entityMapper.toDto(complain, ComplainDTO.class));
+            }
+            return complainDTOS;
+        } catch (Exception e) {
+            return null;
         }
-        return complainDTOS;
     }
 
     @Override
     public List<ComplainDTO> getComplainByArea(String area) {
-        List<Complain> complains = complainRepository.findByArea(area);
-        List<ComplainDTO> complainDTOS = new ArrayList<>();
-        for (Complain complain : complains) {
-            complainDTOS.add(entityMapper.toDto(complain, ComplainDTO.class));
+        try {
+            List<Complain> complains = complainRepository.findByArea(area);
+            List<ComplainDTO> complainDTOS = new ArrayList<>();
+            for (Complain complain : complains) {
+                complainDTOS.add(entityMapper.toDto(complain, ComplainDTO.class));
+            }
+            return complainDTOS;
+        } catch (Exception e) {
+            return null;
         }
-        return complainDTOS;
+        
     }
 }
