@@ -8,6 +8,9 @@ import com.typhoone.rrts.utility.EntityMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class ComplainServiceImpl implements ComplainService {
 
@@ -63,5 +66,25 @@ public class ComplainServiceImpl implements ComplainService {
         Complain complains = complainRepository.findById(id).orElseThrow();
         complainRepository.delete(complains);
         return entityMapper.toDto(complains, ComplainDTO.class);
+    }
+
+    @Override
+    public List<ComplainDTO> getAllComplains() {
+        List<Complain> complains = complainRepository.findAll();
+        List<ComplainDTO> complainDTOS = new ArrayList<>();
+        for (Complain complain : complains) {
+            complainDTOS.add(entityMapper.toDto(complain, ComplainDTO.class));
+        }
+        return complainDTOS;
+    }
+
+    @Override
+    public List<ComplainDTO> getComplainByArea(String area) {
+        List<Complain> complains = complainRepository.findByArea(area);
+        List<ComplainDTO> complainDTOS = new ArrayList<>();
+        for (Complain complain : complains) {
+            complainDTOS.add(entityMapper.toDto(complain, ComplainDTO.class));
+        }
+        return complainDTOS;
     }
 }

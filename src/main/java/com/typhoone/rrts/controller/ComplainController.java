@@ -6,6 +6,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @Controller
 @CrossOrigin
@@ -39,6 +41,18 @@ public class ComplainController {
     @RequestMapping(value = "/getComplainById", method = RequestMethod.POST)
     public ResponseEntity<ComplainDTO> getComplainById(@RequestParam Long id) {
         return ResponseEntity.ok(complainService.getComplainById(id));
+    }
+
+    //getAllComplains
+    @RequestMapping(value = "/getAllComplains", method = RequestMethod.GET)
+    public ResponseEntity<List<ComplainDTO>> getAllComplains() {
+        return ResponseEntity.ok(complainService.getAllComplains());
+    }
+
+    //getComplainByArea
+    @RequestMapping(value = "/getComplainByArea", method = RequestMethod.POST)
+    public ResponseEntity<List<ComplainDTO>> getComplainByArea(@RequestParam String area) {
+        return ResponseEntity.ok(complainService.getComplainByArea(area));
     }
 
 }
