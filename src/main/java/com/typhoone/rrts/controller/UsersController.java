@@ -29,28 +29,57 @@ public class UsersController {
         return ResponseEntity.ok(userService.updateUser(user));
     }
 
-    //deleteUser
-    @RequestMapping(value = "/deleteUser", method = RequestMethod.POST)
-    public ResponseEntity<UsersDTO> deleteUser(@RequestBody UsersDTO user) {
-        return ResponseEntity.ok(userService.deleteUser(user));
+    //deleteUserbyId
+    @RequestMapping(value = "/deleteUserById", method = RequestMethod.POST)
+    public ResponseEntity<UsersDTO> deleteUser(@RequestParam long id) {
+        return ResponseEntity.ok(userService.deleteUserById(id));
     }
 
+    //getAllUsers
+    @RequestMapping(value = "/getAllUsers", method = RequestMethod.GET)
+    public ResponseEntity<Iterable<UsersDTO>> getAllUsers() {
+        if (userService.getAllUsers() == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
 
     //getUserById
     @RequestMapping(value = "/getUserById", method = RequestMethod.POST)
     public ResponseEntity<UsersDTO> getUserById(@RequestParam Long id) {
+        if (id == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (userService.getUserById(id) == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(userService.getUserById(id));
     }
 
     //getUserByEmail
     @RequestMapping(value = "/getUserByEmail", method = RequestMethod.POST)
     public ResponseEntity<UsersDTO> getUserByEmail(@RequestParam String email) {
+        if (email == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (userService.getUserByEmail(email) == null) {
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(userService.getUserByEmail(email));
     }
 
     //getUserByMobile
     @RequestMapping(value = "/getUserByMobile", method = RequestMethod.POST)
     public ResponseEntity<UsersDTO> getUserByMobile(@RequestParam String mobile) {
+        if (mobile == null) {
+            System.out.println("mobile is null");
+            return ResponseEntity.badRequest().build();
+
+        }
+        if (userService.getUserByMobile(mobile) == null) {
+            System.out.println("mobile is not found");
+            return ResponseEntity.notFound().build();
+        }
         return ResponseEntity.ok(userService.getUserByMobile(mobile));
     }
 

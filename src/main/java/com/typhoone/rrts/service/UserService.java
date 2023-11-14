@@ -9,14 +9,13 @@ public interface UserService {
 
     UsersDTO updateUser(UsersDTO user);
 
-    UsersDTO deleteUser(UsersDTO user);
-
-    UsersDTO getUser(Long id);
-
     UsersDTO getUserByEmail(String email);
 
     UsersDTO getUserByMobile(String mobile);
 
     UsersDTO getUserById(Long id);
 
-   }
+    UsersDTO deleteUserById(long id);
+
+    Iterable<UsersDTO> getAllUsers();
+}
