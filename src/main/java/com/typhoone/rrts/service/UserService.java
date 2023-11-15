@@ -1,5 +1,6 @@
 package com.typhoone.rrts.service;
 
+import com.typhoone.rrts.dtos.CredentialsDTO;
 import com.typhoone.rrts.dtos.UsersDTO;
 
 
@@ -18,4 +19,7 @@ public interface UserService {
     UsersDTO deleteUserById(long id);
 
     Iterable<UsersDTO> getAllUsers();
+
+    UsersDTO login(CredentialsDTO credentials);
+
 }

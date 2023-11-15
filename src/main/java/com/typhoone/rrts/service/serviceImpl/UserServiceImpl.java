@@ -1,5 +1,6 @@
 package com.typhoone.rrts.service.serviceImpl;
 
+import com.typhoone.rrts.dtos.CredentialsDTO;
 import com.typhoone.rrts.dtos.UsersDTO;
 import com.typhoone.rrts.entity.Users;
 import com.typhoone.rrts.enums.Role;
@@ -105,6 +106,17 @@ public class UserServiceImpl implements UserService {
                 usersDTO.add(entityMapper.toDto(user, UsersDTO.class));
             }
             return usersDTO;
+        } catch (Exception e) {
+            return null;
+        }
+
+    }
+
+    @Override
+    public UsersDTO login(CredentialsDTO credentials) {
+        try {
+            Users user = usersRepository.findByEmailAndPassword(credentials.getEmail(), credentials.getPassword());
+            return entityMapper.toDto(user, UsersDTO.class);
         } catch (Exception e) {
             return null;
         }

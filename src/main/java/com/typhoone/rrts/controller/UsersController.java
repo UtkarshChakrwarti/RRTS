@@ -1,5 +1,6 @@
 package com.typhoone.rrts.controller;
 
+import com.typhoone.rrts.dtos.CredentialsDTO;
 import com.typhoone.rrts.dtos.UsersDTO;
 import com.typhoone.rrts.service.UserService;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,19 @@ public class UsersController {
     public UsersController(UserService userService) {
         this.userService = userService;
     }
+
+    //login
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public ResponseEntity<UsersDTO> login(@RequestBody CredentialsDTO credentials) {
+        if (credentials.getEmail() == null || credentials.getPassword() == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        if (userService.login(credentials) == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(userService.login(credentials));
+    }
+
 
     //createUser
     @RequestMapping(value = "/createUser", method = RequestMethod.POST)
